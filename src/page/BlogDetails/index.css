@@ -1,0 +1,13 @@
+.mainFlexBlogDetails {
+  margin: auto 25%;
+}
+
+.detailsIcon {
+  font-size: 16px;
+  color: #6b6b6b;
+  cursor: pointer;
+}
+
+.marginLeft {
+  margin-left: 20px;
+}

@@ -36,3 +36,40 @@
     transform: rotate(360deg);
   }
 }
+
+.rootHeader {
+  color: antiquewhite;
+  font-family: cursive;
+  font-size: 30px;
+}
+
+.blogListCard {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.mainFlexBlogList {
+  margin: auto 10%;
+}
+
+.editDeleteButton {
+  background: transparent;
+}
+
+.editDeleteButton:hover {
+  background: #d3d3d3 !important;
+}
+
+.marginRight20 {
+  margin-right: 20px;
+}
+
+.createButton {
+  background: transparent;
+  color: rgb(0, 136, 204);
+}
+
+.createButton:hover {
+  background: #d3d3d3 !important;
+  color: rgb(0, 136, 204) !important;
+}

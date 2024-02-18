@@ -11,6 +11,18 @@
   },
   "plugins": ["react"],
   "rules": {
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "all",
+        "tabWidth": 12,
+        "semi": false,
+        "singleQuote": true,
+        "bracketSpacing": true,
+        "eslintIntegration": true,
+        "printWidth": 120
+      }
+    ]
   }
 }
