@@ -16,8 +16,8 @@
       "error",
       {
         "trailingComma": "all",
-        "tabWidth": 12,
-        "semi": false,
+        "tabWidth": 2,
+        "semi": true,
         "singleQuote": true,
         "bracketSpacing": true,
         "eslintIntegration": true,
