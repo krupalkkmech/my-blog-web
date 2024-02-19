@@ -54,6 +54,7 @@
 
 .editDeleteButton {
   background: transparent;
+  z-index: 200;
 }
 
 .editDeleteButton:hover {

@@ -11,3 +11,11 @@
 .marginLeft {
   margin-left: 20px;
 }
+
+.homeButton {
+  float: inline-end;
+  margin: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #6b6b6b;
+}

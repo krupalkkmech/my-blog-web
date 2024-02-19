@@ -1,24 +1,74 @@
-import React from 'react';
-import { Layout, Flex, Typography, Button } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import React, { useCallback, useEffect } from 'react';
+import { Layout, Flex, Typography, Button, Skeleton, Result } from 'antd';
+import { EditOutlined, SmileOutlined } from '@ant-design/icons';
 import './index.css';
 import BlogCard from './BlogCard';
 import BlogForm from './BlogForm';
 import { useState } from 'react';
+import { getAllBlogs } from '../../api/api';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
 function BlogList() {
   const [open, setOpen] = useState(false);
+  const [allBlogList, setAllBlogList] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   const onClose = () => {
     setOpen(false);
   };
 
-  const onOKClick = () => {
-    console.log('first');
+  const onOKClick = (newBlog) => {
+    setAllBlogList((prev) => [newBlog, ...prev]);
+    onClose();
   };
+
+  const getAllBlogsCall = async () => {
+    setLoader(true);
+    try {
+      const resp = await getAllBlogs();
+      if (resp.code === 200) {
+        setAllBlogList(resp?.result);
+      }
+      console.log(resp);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const showBlogList = useCallback(() => {
+    if (allBlogList.length === 0) {
+      return (
+        <Result
+          icon={<SmileOutlined />}
+          title="Hi, Welcome to the Blogger Site!"
+          subTitle="Click on the start button and create your first blog"
+          extra={
+            <Button type="primary" onClick={() => setOpen(true)}>
+              Start
+            </Button>
+          }
+        />
+      );
+    }
+    return allBlogList.map((eachBlog) => <BlogCard blogData={eachBlog} />);
+  }, [allBlogList]);
+
+  useEffect(() => {
+    getAllBlogsCall();
+  }, []);
+
+  if (loader) {
+    return (
+      <>
+        <Skeleton />
+        <Skeleton />
+      </>
+    );
+  }
 
   return (
     <Layout>
@@ -36,11 +86,7 @@ function BlogList() {
               Create
             </Button>
           </Flex>
-          <Flex vertical>
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-          </Flex>
+          <Flex vertical>{showBlogList()}</Flex>
         </Flex>
       </Content>
       <BlogForm open={open} onClose={onClose} onOKClick={onOKClick} />

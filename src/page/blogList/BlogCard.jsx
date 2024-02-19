@@ -1,12 +1,13 @@
 import React from 'react';
-import { Flex, Card, Button, Typography } from 'antd';
+import PropTypes from 'prop-types';
+import { Flex, Card, Button, Typography, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, ExportOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 const { Title } = Typography;
 
-function BlogCard() {
+function BlogCard({ blogData }) {
   const navigate = useNavigate();
   return (
     <Card
@@ -16,34 +17,46 @@ function BlogCard() {
         <Flex justify="space-between" align="baseline">
           <div>
             <Title level={5} style={{ margin: 0 }}>
-              7 Apps & Websites I use every day as a UX/UI designer
+              {blogData?.title}
             </Title>
-            <span>{moment().format('DD-MM-YYYY')}</span>
+            <span>{moment(blogData?.createdAt).format('DD-MM-YYYY')}</span>
           </div>
           <Flex align="center" style={{ alignSelf: 'center' }}>
             <Button
               type="primary"
               shape="circle"
               className="editDeleteButton marginRight20"
+              icon={<ExportOutlined style={{ fontSize: '16px', color: '#08c' }} />}
+              onClick={() => navigate(`/blog/${blogData?._id}`)}
+            />
+            <Button
+              type="primary"
+              shape="circle"
+              className="editDeleteButton marginRight20"
               icon={<EditOutlined style={{ fontSize: '16px', color: '#08c' }} />}
+              onClick={(e) => {
+                e.preventDefault();
+                message.info('Action for edit post');
+              }}
             />
             <Button
               type="primary"
               shape="circle"
               className="editDeleteButton"
               icon={<DeleteOutlined style={{ fontSize: '16px', color: '#08c' }} />}
+              onClick={() => message.info('Action for delete post')}
             />
           </Flex>
         </Flex>
       }
-      onClick={() => navigate('/blog/1234')}
-      // extra={<a href="#">More</a>}
     >
-      We can all agree that Figma has changed how we work in UX/UI design, making everything simpler
-      and all in one place. However, even with Figma’s amazing features and plugins, there are other
-      apps ...
+      {blogData?.shortContent}
     </Card>
   );
 }
+
+BlogCard.propTypes = {
+  blogData: PropTypes.shape(),
+};
 
 export default BlogCard;
